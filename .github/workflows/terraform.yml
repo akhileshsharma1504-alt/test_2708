@@ -24,24 +24,24 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./root-module
+        working-directory: ./test_2708
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: ./root-module
+        working-directory: ./test_2708
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: ./root-module
+        working-directory: ./test_2708
 
       - name: Upload Plan Artifact
         if: startsWith(github.ref, 'refs/heads/feature/')
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: ./root-module/tfplan
+          path: ./test_2708/tfplan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
-        working-directory: ./root-module
+        working-directory: ./test_2708
